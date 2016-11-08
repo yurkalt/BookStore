@@ -1,7 +1,6 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +11,32 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class Order {
-    private long id;
-    private OrderStatus status;
-    private User user;
-    private List<Book> bookList = new ArrayList<>();
-    private long total;
 
-    public Order(User user) {
-        this.user = user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+    @ManyToOne(cascade=CascadeType.ALL )
+    @JoinColumn(referencedColumnName = "id")
+    private User user;
+
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="ORDER_BOOK",
+            joinColumns=
+            @JoinColumn(name="ORDER_ID", referencedColumnName="id"),
+            inverseJoinColumns=
+            @JoinColumn(name="BOOK_ID", referencedColumnName="id")
+    )
+    private List<Book> bookList;
+
+    @Column(name = "totalPrice", nullable = true)
+    private long totalPrice;
+
+    public Order() {
+
 
     }
 
@@ -32,19 +49,27 @@ public class Order {
     }
 
     public long getTotal() {
-        return total;
+        return totalPrice;
     }
 
     public void setTotal(long total) {
-        this.total = total;
+        this.totalPrice = total;
     }
 
     public User getUser() {
         return user;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public List<Book> getBookList() {
         return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     public long getId() {
@@ -58,7 +83,7 @@ public class Order {
                 ", status=" + status +
                 ", user=" + user +
                 ", bookList=" + bookList +
-                ", total=" + total +
+                ", total=" + totalPrice +
                 '}';
     }
 }
