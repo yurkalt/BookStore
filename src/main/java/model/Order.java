@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
+@NamedQueries({@NamedQuery(name = "getAllOrders", query = "SELECT c FROM Order c")})
 public class Order {
 
     @Id
@@ -28,16 +29,13 @@ public class Order {
             joinColumns=
             @JoinColumn(name="ORDER_ID", referencedColumnName="id"),
             inverseJoinColumns=
-            @JoinColumn(name="BOOK_ID", referencedColumnName="id")
-    )
+            @JoinColumn(name="BOOK_ID", referencedColumnName="id"))
     private List<Book> bookList;
 
     @Column(name = "totalPrice", nullable = true)
     private long totalPrice;
 
     public Order() {
-
-
     }
 
     public OrderStatus getStatus() {
@@ -74,6 +72,18 @@ public class Order {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(long totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     @Override

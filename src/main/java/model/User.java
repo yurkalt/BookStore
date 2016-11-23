@@ -9,7 +9,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "user")
-@NamedQueries({@NamedQuery(name = "getAllUsers", query = "SELECT c FROM User c")})
+@NamedQueries({@NamedQuery(name = "getAllUsers", query = "SELECT c FROM User c"),
+        @NamedQuery(name = "getUser", query = "SELECT c FROM User c where c.userName=:userName")})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +30,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     List<Order> orders = new ArrayList<>();
+
+    public User() {
+    }
 
     public User(String userName, String password, UserIdentifier identifier, int balance) {
         this.userName = userName;
@@ -51,6 +55,31 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                ", userName='" + userName + '\'' +
+                ", identifier=" + identifier +
+                ", balance=" + balance +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public UserIdentifier getIdentifier() {

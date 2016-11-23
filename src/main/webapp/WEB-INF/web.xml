@@ -4,15 +4,28 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext*.xml</param-value>
+    </context-param>
+
+
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>servlet.BookWebListener</listener-class>
+    </listener>
+
     <filter>
-        <filter-name>LoggingFilter</filter-name>
-        <filter-class>ua.artcode.taxi.filter.RequestLoggerFilter</filter-class>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>filters.AdminFilter</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>LoggingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin</url-pattern>
     </filter-mapping>
-
 
 </web-app>

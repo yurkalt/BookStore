@@ -1,12 +1,14 @@
 package test;
 
 import dao.BookDaoImpl;
+import dao.UserDaoImpl;
 import model.Book;
 import model.Order;
 import model.User;
 import model.UserIdentifier;
 import utils.ConnectionFactory;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 
 /**
@@ -15,8 +17,7 @@ import javax.persistence.EntityManager;
 public class TestHibernate {
     public static void main(String[] args) {
 
-        BookDaoImpl bookDao = new BookDaoImpl();
-        bookDao.addBook(new Book("Kobzar","Shevchenko", 35, 5));
-        System.out.println(bookDao.getAllBooks());
+         new BookDaoImpl().addBook(new Book("Shveik","Gashek", 35, 20));
+
     }
 }

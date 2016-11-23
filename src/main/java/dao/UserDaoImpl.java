@@ -21,8 +21,18 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User createUser() {
-        return null;
+    public User createUser(User user) {
+
+        manager.getTransaction().begin();
+        Query query = manager.createNamedQuery("getUser");
+        query.setParameter("userName", user.getUserName());
+        if (query.getResultList().isEmpty()) {
+            manager.persist(user);
+        } else {
+            System.out.println("User already exists!");
+        }
+        manager.getTransaction().commit();
+        return user;
     }
 
     @Override

@@ -67,4 +67,12 @@ public class BookDaoImpl implements BookDao {
         manager.getTransaction().commit();
         return books;
     }
+
+    @Override
+    public Book findByID(int bookID) {
+        manager.getTransaction().begin();
+        Book found = manager.find(Book.class, bookID);
+        manager.getTransaction().commit();
+        return found;
+    }
 }

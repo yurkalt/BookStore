@@ -12,4 +12,5 @@ public interface BookDao {
     Book addBook(Book book);
     Book removeBook(Book book) throws UnknownBookException;
     List<Book> getAllBooks();
+    Book findByID(int bookID);
 }

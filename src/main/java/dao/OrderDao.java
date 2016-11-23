@@ -3,6 +3,7 @@ package dao;
 import java.util.Collection;
 import java.util.List;
 
+import exceptions.InsufficientFundsException;
 import model.Book;
 import model.Order;
 import model.User;
@@ -12,10 +13,13 @@ import model.User;
  */
 public interface OrderDao {
 
-    Order createOrder(User user, Order order, List<Book> bookLis);
+    Order newOrder(User user);
     List<Order> getAllOrders();
-    Order completeOrder(Order order);
+    Order completeOrder(Order order) throws InsufficientFundsException;
     Order addBook(Order order, Book book);
     Order removeBook(Order order, Book book);
 
+    Order findById(long orderID);
+
+    Order cancelOrder(Order order);
 }

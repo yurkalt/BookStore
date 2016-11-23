@@ -17,7 +17,7 @@
 
     <form method="post" action="login">
         <ul>
-            <li>Input phone:
+            <li>Input name:
                 <input name="name" type="text">
             </li>
             <li>Input password:
