@@ -56,9 +56,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order completeOrder(Order order) throws InsufficientFundsException {
-           manager.getTransaction().begin();
-           User user = order.getUser();
-           userDao.chargeUser(order.getTotal(), user);
+        User user = order.getUser();
+        userDao.chargeUser(order.getTotal(), user);
+        manager.getTransaction().begin();
            order.setStatus(OrderStatus.DONE);
            manager.merge(order);
            manager.merge(user);

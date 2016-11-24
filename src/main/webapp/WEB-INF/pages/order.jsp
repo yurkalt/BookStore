@@ -13,6 +13,7 @@
 </head>
 <body>
     <table>
+        <td>Balance: ${user.balance}</td>
             <c:forEach items="${orderBooks}" var="book">
                 <tr>
                 <td>Title: <c:out value="${book.title}"/></td>

@@ -39,6 +39,7 @@ public class OrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             session = req.getSession(false);
+            req.setAttribute("user", session.getAttribute("user"));
             req.setAttribute("orderBooks", ((Order) session.getAttribute("order")).getBookList()); // get book list from order
         }catch (NullPointerException e) {
             req.setAttribute("errorTitle", "Order is empty!");
@@ -58,7 +59,7 @@ public class OrderServlet extends HttpServlet {
             req.setAttribute("errorMessage", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
         }
-        resp.sendRedirect("/WEB-INF/pages/success.jsp");
+        req.getRequestDispatcher("/WEB-INF/pages/success.jsp").forward(req,resp);
 
     }
 }

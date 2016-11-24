@@ -17,7 +17,7 @@ import javax.persistence.EntityManager;
 public class TestHibernate {
     public static void main(String[] args) {
 
-         new BookDaoImpl().addBook(new Book("Shveik","Gashek", 35, 20));
+         new UserDaoImpl().createUser(new User("user","user",UserIdentifier.U, 500));
 
     }
 }
